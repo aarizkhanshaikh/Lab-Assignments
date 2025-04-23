@@ -1,0 +1,296 @@
+|***LAB 2***|
+
+Basic Scanning
+
+1.	nmap 172.16.182.24
+Flags: (None)
+Description: Scan a single IP
+
+2.	nmap www.amazon.com
+Flags: (None)
+Description: Scan a domain name
+
+3.	nmap 192.168.1.1-100
+Flags: (None)
+Description: Scan a range of IPs
+
+4.	nmap 192.168.1.1/24
+Flags: (None)
+Description: Scan an entire subnet
+
+5.	nmap -p 8080 192.168.1.1
+Flags: -p
+Full Form: --port
+Description: Scan specific port
+
+6.	nmap -F 192.168.1.1
+Flags: -F
+Full Form: --fast
+Description: Fast scan of top 100 ports
+
+7.	nmap -p 80-100 172.16.182.54
+Flags: -p
+Full Form: --port
+Description: Scan a range of ports
+
+8.	sudo nmap -f 192.168.1.1
+Flags: -f
+Full Form: --fragment
+Description: Fragmented packets scan (bypass firewalls)
+
+9.	nmap -sP 192.168.1.1/24 (Deprecated: use -sn)
+Flags: -sP
+Full Form: Ping Sweep
+Description: Discover live hosts in subnet
+
+
+Live Host Discovery (Sweep Scans)
+
+10.	nmap -PR -sn 172.16.182.224/24
+Flags: -PR, -sn
+Full Forms: ARP ping, No port scan
+Description: ARP scan for live hosts
+
+11.	nmap -PP -sn 172.16.182.224/24
+Flags: -PP, -sn
+Full Forms: ICMP ping, No port scan
+Description: ICMP echo scan for live hosts
+
+
+Ping Scans (TCP/UDP)
+
+12.	nmap -PA
+Flags: -PA
+Full Form: TCP ACK Ping
+Description: TCP-based host discovery
+
+13.	nmap -PU
+Flags: -PU
+Full Form: UDP Ping
+Description: UDP-based host discovery
+
+
+Port and Service Scanning
+
+14.	nmap -p83-85 -sS 172.16.182.54
+Flags: -p, -sS
+Full Forms: --port, SYN scan
+Description: TCP SYN scan on specific ports
+
+15.	nmap -p83-85 -sV 172.16.182.54
+Flags: -p, -sV
+Full Forms: --port, Version detection
+Description: Identify service versions
+
+16.	nmap -sS -p83-85 -sV 172.16.182.54
+Flags: -sS, -p, -sV
+Full Forms: SYN scan, Port, Version detection
+Description: SYN scan with version detection
+
+
+Performance & Tuning Options
+
+17.	nmap -T4 -n -Pn -p <port> <target ip>
+Flags: -T4, -n, -Pn, -p
+Full Forms:
+o	-T4: Aggressive timing template
+o	-n: No DNS resolution
+o	-Pn: No host discovery (assume host is up)
+o	-p: Port(s) to scan
+Description: Fast scan with no DNS, no ping
+
+
+|***LAB 3***|
+
+1.	nmap -O 192.168.70.135
+Flags: -O
+Full Form: OS detection
+Description: Detect operating system of target
+
+2.	nmap -O -v 192.168.70.135
+Flags: -O, -v
+Full Forms: OS detection, Verbose mode
+Description: OS detection with more detailed output
+
+3.	nmap -sV -O -v 192.168.70.135
+Flags: -sV, -O, -v
+Full Forms: Version detection, OS detection, Verbose mode
+Description: Detect services, OS, and output details
+
+4.	nmap -Pn --script vuln nmap.scanme.org
+Flags: -Pn, --script vuln
+Full Forms: No ping, Vulnerability scripts
+Description: Run vulnerability scripts without host discovery
+
+5.	nmap -sS -p 80 <IP>
+Flags: -sS, -p
+Full Forms: SYN scan, Port 80
+Description: TCP SYN scan on port 80
+
+6.	nmap -sV -p 20,21,22 <IP>
+Flags: -sV, -p
+Full Forms: Version detection, Ports 20,21,22
+Description: Detect services on FTP and SSH ports
+
+7.	nmap --top-ports 20 <IP>
+Flags: --top-ports
+Full Form: Scan top 20 common ports
+Description: Scan most commonly used 20 ports
+
+8.	nmap -sV --script=http-malware-host nmap.scanme.org
+Flags: -sV, --script=http-malware-host
+Full Forms: Version detection, Malware detection script
+Description: Scan for malware-hosting HTTP services
+________________________________________
+Metasploit Framework Tasks
+•	Launch Metasploit and use a scan module
+•	Set RHOSTS to the target IP
+•	Run service and version detection on open ports
+•	Use exploit command to test vulnerability
+•	Example Workflow:
+•	use auxiliary/scanner/portscan/tcp  
+•	set RHOSTS <target-ip>  
+•	run  
+•	use exploit/multi/http/<module_name>  
+•	set RHOSTS <target-ip>  
+•	exploit  
+_________________________
+FAQs:
+•	CSRF (Cross-Site Request Forgery): Forces a user to execute unwanted actions on a web application.
+•	SSRF (Server-Side Request Forgery): Forces server to make unauthorized requests.
+•	XSS (Cross-Site Scripting): Injects malicious scripts into webpages.
+•	DOM-based XSS: Exploits client-side scripts that dynamically update the DOM.
+•	Slowloris Attack: Sends partial HTTP requests to exhaust server resources.
+•	Other Vulnerabilities:
+o	SQL Injection: Injects SQL to manipulate databases
+o	Buffer Overflow: Overwrites memory to execute arbitrary code
+o	Open Redirect: Forces redirect to malicious sites
+________________________________________
+Usage of Metasploit Framework:
+•	Scanning networks
+•	Gathering information
+•	Exploiting known vulnerabilities
+•	Testing patches and exploits
+•	Post-exploitation and privilege escalation
+________________________________________
+Modules Supported by Metasploit:
+•	Exploit modules – Launch specific attacks
+•	Payload modules – Provide malicious code to be executed
+•	Auxiliary modules – Scanning, sniffing, fuzzing
+•	Post modules – Actions after exploitation
+•	Encoder modules – Obfuscate payloads
+•	NOP generators – Padding to bypass detection
+
+
+|***LAB 4***|
+
+xsltproc
+
+Step 1: nmap -p 1-65535 -T5 -A -v <ip>/24 -oX output.xml
+
+Step 2: sudo apt install xsltproc ----->(XSLT Stylesheet to XML document)
+
+Step 3: xsltproc output.xml -o output.html
+
+Step 4: open output.html in browser
+
+|***LAB 5***|
+
+
+1. nmap -p 22 -oG - 192.168.1.0/24
+
+Flags: -p, -oG
+Full Forms:
+
+-p: Scan specified port (22 = SSH)
+-oG: Output in grepable format
+
+Description: Scan SSH port on entire subnet, output results in grep-friendly format
+
+2. nmap -p 22 -oG - 192.168.1.24 | grep 22/open
+
+Flags: -p, -oG, grep
+Full Forms:
+
+-p: Scan port 22
+-oG: Grepable output
+
+grep: Filter results for open port 22
+Description: Find hosts with SSH port open on a specific IP or subnet
+
+|***LAB 7***|
+
+Implementation to Gather Information from Any PC Connected to the LAN Using whois, Port Scanners, Network Scanning Tools (Angry IP, MegaPing, etc.)
+________________________________________
+1. WHOIS Lookup (Kali Linux)
+Installation:
+sudo apt install whois
+Usage:
+whois 172.16.182.54
+whois wikipedia.com
+Purpose: Retrieve domain/IP registration info.
+________________________________________
+2. Host Discovery using Angry IP Scanner (Linux)
+Download Angry IP:
+https://angryip.org/download/#linux
+Install Steps:
+cd Downloads
+ls
+sudo dpkg -i ipscan_3.9.1_amd64.deb
+Usage:
+•	Open Angry IP
+•	Enter desired IP range (e.g., 172.16.182.1 – 172.16.182.254)
+•	Click "Start"
+Purpose: Scan IPs to check if hosts are alive.
+________________________________________
+3. Network Scanning using Metasploit Framework
+Start Metasploit:
+msfconsole
+Step-by-step Port Scan:
+Using SYN Port Scanner Module:
+search portscan
+use auxiliary/scanner/portscan/syn
+set INTERFACE eth0
+set PORTS 80
+set RHOSTS 10.10.1.5-23
+set THREADS 50
+run
+Using TCP Port Scanner Module:
+use auxiliary/scanner/portscan/tcp
+set RHOSTS [Target IP]
+run
+Purpose: Discover open ports and running services.
+________________________________________
+4. Port & Service Discovery using MegaPing (Windows)
+Download Setup:
+https://megaping.informer.com/download
+Steps:
+•	Install and open MegaPing
+•	Accept license agreement
+IP Scanner:
+•	Click IP Scanner
+•	Enter IP range: 172.16.182.1 to 172.16.182.25
+•	Click Start
+•	View live/dead hosts, TTL values, stats
+Port Scanner:
+•	Click Port Scanner
+•	Add target IP: 172.16.182.54
+•	Check the box for the IP
+•	Click Start
+•	View scanned ports, service info, descriptions, risks
+________________________________________
+5. Port & Service Discovery using NetScanTools Pro (Windows)
+Download Setup:
+nstp11demo.exe from http://e.informer.com/netscantools.com/nstpromain.html
+Steps:
+•	Install and start Demo version
+•	Click Start NetScanTools Pro Demo…
+Ping Scanner:
+•	Go to Manual Tools (all) > Ping Scanner
+•	Select “Use Default System DNS”
+•	Enter Start IP and End IP
+•	Accept terms
+•	View results in the browser
+________________________________________
+
+
